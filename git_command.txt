@@ -1,0 +1,131 @@
+
+
+git config --global user.name "ch" 							设置commit 的昵称
+
+git config --global user.email "ch836698054@163.com"		设置commit的邮箱
+
+git config --global push.default simple						配置推送要用的push.defaut
+
+		如果要使用git进行推送,则必须配置 push.default ,否则推送失败. 姓名与Email只用于日志标识.
+
+		实际推送到GitHub等在线仓库时,要用有操作权限的账号登录.
+		
+git config --global alias:st status   						表示全局设置用"st"作为"status”的别名，代替”status“命令
+
+git config -l 							查看git的配置，l是list的首字母
+
+mkdir learngit							创建一个文件夹，名字为learngit
+
+cd learngit 							转到learngit文件夹下
+
+pwd										显示当前目录
+
+git init								把当前目录变为Git可以管理的仓库
+
+ls -ah									查看隐藏目录
+
+git add filename.txt					把filename.txt文件添加到git仓库的暂存区(stage)，是把该文件提交到git仓库的第一步
+
+git commit -m "change massage"			把暂存区的内容全部提交到git的master分支，“”里的内容是描述对文件进行的操作
+
+git status								查看对git仓库内所有文件的操作，也可理解为显示stage区域的内容，时刻掌握仓库的状态
+
+git diff								查看对git仓库内所有文件的内容的具体操作
+
+git log 								显示日志
+
+git log --pretty=oneline				按照一行格式显示日志
+	
+git reset --hard head^					回退到当前指针head所指结点的上一个结点，一个 ^ 表示一级，如果是上20个结点，可以用~20
+
+git reset --hard 321xa					321xa 是git log 命令查看到的commit id（版本号），结点的唯一标识
+
+git reflog								查看之前的每一次的有效操作命令，比如reset，commit等
+
+cat filename.txt						查看工作区中该文件的内容
+
+git diff head -- filename.txt			查看名字为filename的文件在工作区与版本库中的区别
+
+git reset head filename.txt  			撤回提交到暂存区的名字为filename文件
+
+git checkout -- filename.txt			撤消工作区中对该文件的全部修改，就是让这个文件回到最近一次git commit或git add时的状态,即版本库的最新。
+
+rm filename.txt							删除工作区的该文件
+
+git rm filename.txt						删除版本库的filename文件的第一步，和提交文件到版本库一样
+
+git commit -m "remove filename"			删除版本库的filename文件的第二步，版本库中的删除后，可以通过reset进行回退
+
+git remote add origin git@github.com:ch836698054/learngit.git		本地仓库和远程仓库进行关联
+
+git push -u origin master				第一次推送本地master分支的所有内容到所关联的远程仓库
+
+git push origin master					在第一次推送后，不用-u即可推送最新修改
+
+git clone git@github.com:ch836698054/gitskills.git 			从GitHub账号ch836698054的远程仓库克隆仓库gitskills.git
+
+git branch								显示所有分支
+
+git branch <name>						创建分支
+
+git checkout <name>						切换到<name>分支
+
+git checkout -b <name>					创建并切换到该分支
+
+git merge <name>						合并某<name>分支到当前分支，采用的是fast forward，即快速合并，在删除分支后会丢掉分支信息
+
+git branch -d <name>					删除<name>分支
+
+git branch -D <name>					强行删除一个还没有进行合并的<name>分支
+
+git log --graph --pretty=oneline --abbrev-commit		查看解决合并分支冲突后的分支合并图，冲突只能手动在文档中解决
+
+git merge --no-ff -m "descripte massage" <name>			--no-ff 方式合并，禁用了fast forward，Git会在合并时生成一个新的commit，便可以从分支历史上看出分支信息
+
+git stash								保存在当前分支的工作区，保存工作现场
+
+git stash list							显示在当前分支内用stash保存的所有工作区
+
+git stash apply							还原在当前分支内用stash保存的所有工作区，回到工作现场
+
+git stash drop							删除当前分支的stash list的所有内容
+
+git stash pop							还原的同时把stash list的内容也删了
+
+git remote (-v)							查看远程库信息，加-v便可以在此基础上看到fetch和push(具有权限)的地址
+
+git push origin branch-name 			从本地推送分支，若推送失败，先用git pull抓取远程的新提交
+
+git checkout -b branch-name origin/branch-name  			在本地创建和远程分支对应的分支，branch-name最好一致
+
+git branch --set-upstream branch-name origin/branch-name	建立本地分支和远程分支的关联
+
+git pull								从远程抓取分支，如果有冲突，要先处理冲突，若pull失败，可能是本地的分支没有和远程的分支相关联
+
+git tag 								查看标签
+
+git tag <name>							创建标签，默认是指向当前分支的head，
+
+git tag <name> commit id				创建指向一个特定的标签
+
+git tag -a <tagname> -m "massage" commit id 		创建指定commit的且有描述信息的标签
+
+git tag -s <tagname> -m "massage" commit id			用私钥签名一个标签，签名采用PGP签名，必须先安装gpg(GnuPG)，没有找到gpg或者没有gpg密钥对就会报错
+
+git show <tagname>						查看指定标签的信息
+
+git push origin <tagname>				推送本地标签到远程仓库
+
+git push origin --tags					推送还未推送的所有本地标签到远程仓库
+
+git tag -d <tagname>					删除指定的本地标签
+
+git push origin :refs/tags/<tagname>	删除远程仓库标签的第二步，第一步先删除本地对应的标签
+
+git add .gitignore						提交忽略定义的特殊文件，在.gitignore里面定义，commit后，git status命令将会忽略掉这些特殊文件，
+
+git add -f java.class					忽略掉的文件，可以用-f强制提交
+
+git check-ignore -v java.class			检查.gitignore文件中java.class的配置信息
+
+git remote set-url origin URL			更换远程仓库地址，URL为新地址
