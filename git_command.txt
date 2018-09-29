@@ -99,6 +99,7 @@ git push origin branch-name 			从本地推送分支，若推送失败，先用g
 git checkout -b branch-name origin/branch-name  			在本地创建和远程分支对应的分支，branch-name最好一致
 
 git branch --set-upstream branch-name origin/branch-name	建立本地分支和远程分支的关联
+或者 git branch --set-upstream-to=origin/<branch-name> dev
 
 git pull								从远程抓取分支，如果有冲突，要先处理冲突，若pull失败，可能是本地的分支没有和远程的分支相关联
 
