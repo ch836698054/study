@@ -26,6 +26,12 @@ ls -ah									查看隐藏目录
 
 git add filename.txt					把filename.txt文件添加到git仓库的暂存区(stage)，是把该文件提交到git仓库的第一步
 
+git add -u  <==> git add –update 		提交所有被删除和修改的文件到数据暂存区
+
+git add . 								提交所有修改的和新建的数据暂存区
+
+git add -A  <==>git add –all 			提交所有被删除、被替换、被修改和新增的文件到数据暂存区
+
 git commit -m "change massage"			把暂存区的内容全部提交到git的master分支，“”里的内容是描述对文件进行的操作
 
 git status								查看对git仓库内所有文件的操作，也可理解为显示stage区域的内容，时刻掌握仓库的状态
